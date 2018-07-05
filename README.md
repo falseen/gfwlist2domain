@@ -6,3 +6,4 @@
 * -i 输入的gfwlist.txt，默认同级目录下的 gfwlist.txt
 * -o 输出的文件，默认同级目录下的 domain.txt
 * gwflist.txt 获取地址是 https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
+* scp pac.conf root@192.168.31.1:/etc/misstar/applications/ss/config/pac.conf

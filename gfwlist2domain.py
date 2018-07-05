@@ -15,7 +15,7 @@ def parse_args():
     parser.add_argument('-i', '--input', dest='input',
                       help='path to gfwlist', metavar='GFWLIST', default='gfwlist.txt')
     parser.add_argument('-o', '--output', dest='output',
-                      help='path to output pac', metavar='PAC', default='domain.txt')
+                      help='path to output pac', metavar='PAC', default='pac.conf')
     return parser.parse_args()
 
 
@@ -84,8 +84,6 @@ def main():
         content = f.read()
     content = decode_gfwlist(content)
     domains = parse_gfwlist(content)
-
-    print domains
     with open(args.output, 'wb') as f:
         f.write(domains)
         
