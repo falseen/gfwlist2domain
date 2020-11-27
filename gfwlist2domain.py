@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import pkgutil
-import urlparse
+from urllib.parse import urlparse
 import json
 import logging
 from argparse import ArgumentParser
+import base64
 
 __all__ = ['main']
 
@@ -22,9 +23,9 @@ def parse_args():
 def decode_gfwlist(content):
     # decode base64 if have to
     try:
-        return content.decode('base64')
+        return base64.b64decode(content).decode("utf-8")
     except:
-        return content
+        return content.decode("utf-8")
 
 
 def get_hostname(something):
@@ -32,7 +33,7 @@ def get_hostname(something):
         # quite enough for GFW
         if not something.startswith('http:'):
             something = 'http://' + something
-        r = urlparse.urlparse(something)
+        r = urlparse(something)
         return r.hostname
     except Exception as e:
         logging.error(e) 
@@ -48,10 +49,13 @@ def add_domain_to_set(s, something):
             hostname = hostname.rstrip('/')
         if hostname:
             s.add(hostname)
+            print(hostname)
 
 
 def parse_gfwlist(content):
-    builtin_rules = pkgutil.get_data(__name__,'builtin.txt').splitlines(False)
+    with open('builtin.txt',"r") as f:
+        builtin_str = f.read()
+    builtin_rules = builtin_str.splitlines(False)
     gfwlist = content.splitlines(False)
     domains = set(builtin_rules)
     for line in gfwlist:
@@ -80,11 +84,11 @@ def parse_gfwlist(content):
 
 def main():
     args = parse_args()
-    with open(args.input, 'rb') as f:
+    with open("gfwlist.txt", 'rb') as f:
         content = f.read()
     content = decode_gfwlist(content)
     domains = parse_gfwlist(content)
-    with open(args.output, 'wb') as f:
+    with open("domain.txt", 'w') as f:
         f.write(domains)
         
 
