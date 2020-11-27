@@ -7,6 +7,7 @@ import json
 import logging
 from argparse import ArgumentParser
 import base64
+import requests
 
 __all__ = ['main']
 
@@ -82,10 +83,16 @@ def parse_gfwlist(content):
     return '\n'.join(domains)
 
 
+gfwlist_url = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
+
 def main():
     args = parse_args()
-    with open("gfwlist.txt", 'rb') as f:
-        content = f.read()
+    # with open("gfwlist.txt", 'rb') as f:
+    #     content = f.read()
+    r = requests.get(gfwlist_url)
+    content = r.text
+    with open("gfwlist.txt", 'w') as f:
+        f.write(content)
     content = decode_gfwlist(content)
     domains = parse_gfwlist(content)
     with open("domain.txt", 'w') as f:
