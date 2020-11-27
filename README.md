@@ -7,4 +7,4 @@
 * 输出的文件在同级目录下的 domain.txt
 * gwflist.txt 获取地址是 https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
 * scp pac.conf root@192.168.31.1:/etc/misstar/applications/ss/config/pac.conf
-* 本项目fork自https://github.com/dhso/gfwlist2domain，在其基础上做了一些修改。
+* 本项目fork自https://github.com/dhso/gfwlist2domain, 在其基础上做了一些修改。
