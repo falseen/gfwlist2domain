@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pkgutil
-from urllib.parse import urlparse
+from urllib.parse import urlparse,unquote
 import json
 import logging
 from argparse import ArgumentParser
@@ -43,7 +43,9 @@ def get_hostname(something):
 
 def add_domain_to_set(s, something):
     hostname = get_hostname(something)
+    
     if hostname is not None:
+        hostname = unquote(hostname)
         if hostname.startswith('.'):
             hostname = hostname.lstrip('.')
         if hostname.endswith('/'):
