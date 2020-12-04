@@ -49,8 +49,11 @@ def add_domain_to_set(s, something):
         if hostname.endswith('/'):
             hostname = hostname.rstrip('/')
         if hostname:
-            s.add(hostname)
-            print(hostname)
+            if len(hostname.split("."))>1:
+                s.add(hostname)
+                print(hostname)
+            else:
+                ignorelist.append(hostname)
 
 
 def parse_gfwlist(content):
@@ -84,6 +87,8 @@ def parse_gfwlist(content):
 
 
 gfwlist_url = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
+ignorelist = []
+
 
 def main():
     args = parse_args()
@@ -97,6 +102,7 @@ def main():
     domains = parse_gfwlist(content)
     with open("domain.txt", 'w') as f:
         f.write(domains)
+    print(f"忽略:{ignorelist}")
         
 
 if __name__ == '__main__':
