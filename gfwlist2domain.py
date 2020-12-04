@@ -8,6 +8,7 @@ import logging
 from argparse import ArgumentParser
 import base64
 import requests
+import re
 
 __all__ = ['main']
 
@@ -32,6 +33,7 @@ def decode_gfwlist(content):
 def get_hostname(something):
     try:
         # quite enough for GFW
+        something = unquote(something)
         if not something.startswith('http:'):
             something = 'http://' + something
         r = urlparse(something)
@@ -45,13 +47,12 @@ def add_domain_to_set(s, something):
     hostname = get_hostname(something)
     
     if hostname is not None:
-        hostname = unquote(hostname)
         if hostname.startswith('.'):
             hostname = hostname.lstrip('.')
         if hostname.endswith('/'):
             hostname = hostname.rstrip('/')
         if hostname:
-            if len(hostname.split("."))>1:
+            if len(hostname.split("."))>1 and re.search('^(?=^.{3,255}$)([a-zA-Z0-9][-a-zA-Z0-9]{0,62}).+(\.[a-zA-Z][-a-zA-Z]{0,62})+$',hostname):
                 s.add(hostname)
                 print(hostname)
             else:
