@@ -4,3 +4,4 @@ wikipedia.org
 wiztreefree.com
 7-zip.org
 vmware.com
+microsoft.com
