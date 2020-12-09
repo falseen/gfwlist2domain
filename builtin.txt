@@ -8,3 +8,4 @@ microsoft.com
 visualstudio.com
 python.org
 readthedocs.io
+pypi.org
