@@ -5,3 +5,6 @@ wiztreefree.com
 7-zip.org
 vmware.com
 microsoft.com
+visualstudio.com
+python.org
+readthedocs.io
